@@ -1,0 +1,21 @@
+<%= form_tag 'getApiUpdate', id: "updateform", method: "put", :class=>"form-horizontal" do %>
+	<div class="form-group">
+  		<%= label_tag :name, "Name:",:class=>'col-lg-4 control-label text-danger'%>
+  		<div class="col-lg-5">
+  			<%= text_field_tag :name, session[:user]["name"],:class=>'form-control', :required=>true %>
+  		</div>
+  	</div>
+  	<%= hidden_field_tag(:email,session[:user]["email"]) %>
+	<div class="form-group">
+  		<%= label_tag :password, "Password:",:class=>'col-lg-4 control-label text-danger' %>
+  		<div class="col-lg-5">
+  			<%= text_field_tag :password,session[:user]["password"],:class=>'form-control',:required=>true %>
+  		</div>
+  	</div>
+	<div class="form-group">
+		<div class="col-lg-offset-4 col-lg-5">
+  			<%= submit_tag("Update") %>
+  			<%= link_to "Go Back", "/" %>
+  		</div>
+  	</div>
+<% end %>

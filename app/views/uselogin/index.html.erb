@@ -1,0 +1,41 @@
+<header>
+	<div>
+		<h1 class="text-danger">Use Login</h1>
+	</div>
+</header>
+<div class="panel panel-success panel-header">
+	<% if flash[:notice] %>
+		<%= flash[:notice] %>
+	<% end %>
+</div>
+<div>
+	<% if session[:user]!= nil %>
+	<div class="table">
+		<table class="table-bordered">
+			<tr>
+				<td>Name:</td>
+				<td><%= session[:user]["name"]%></td>
+			</tr>
+			<tr>
+				<td>email:</td>
+				<td><%= session[:user]["email"]%></td>
+			</tr>			
+			<tr>
+				<td>Course:</td>
+				<td><%= session[:user]["course_name"]%></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><%= session[:user]["password"]%></td>
+			</tr>
+		</table>
+	</div>
+		<%= link_to "Updation Form", updationform_path %>
+		<%= link_to "Myusers", userlist_path %>
+		<%= link_to "Logout", logoutuser_path %>
+	<% else %>
+		<%=link_to "Login Form", loginform_path %>
+		<%= link_to "Registration Form", regform_path %>
+	<% end %>
+
+</div>
