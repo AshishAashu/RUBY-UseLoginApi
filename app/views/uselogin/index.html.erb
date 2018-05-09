@@ -13,6 +13,11 @@
 	<div class="table">
 		<table class="table-bordered">
 			<tr>
+				<td colspan="2">
+					<%= link_to "Download Info", downloaduserinfo_path(format: "xls") %>
+				</td>
+			</tr>
+			<tr>
 				<td>Name:</td>
 				<td><%= session[:user]["name"]%></td>
 			</tr>
@@ -30,8 +35,10 @@
 			</tr>
 		</table>
 	</div>
+	<div class="container">
+		<iframe src="http://www.youtube.com/embed/<%= session[:user]["youtube_id"]%>" width="600" height="300" allowfullscreen></iframe>
+	</div>
 		<%= link_to "Updation Form", updationform_path %>
-		<%= link_to "Myusers", userlist_path %>
 		<%= link_to "Logout", logoutuser_path %>
 	<% else %>
 		<%=link_to "Login Form", loginform_path %>
