@@ -38,7 +38,8 @@ class UseloginController < ApplicationController
         req = Net::HTTP::Post.new(uri.request_uri)
         req["apikey"] = "asdfghjklz"
         req.set_form_data({"name"=>params[:name],"email"=>params[:email],
-        	"password"=>params[:password],"course"=>params[:course]})
+        	"password"=>params[:password],"course"=>params[:course],"youtube_id"=>
+        		params[:youtube_id]})
         res = http.request(req)
         res = JSON.parse(res.body)
       	if(res["status"] == "OK")
@@ -117,5 +118,28 @@ class UseloginController < ApplicationController
         req["apikey"] = "asdfghjklz"
         res = http.request(req)
         res = JSON.parse(res.body)
+	end
+
+	def downloaduserinfo
+		respond_to do |format|
+			format.xls {send_data generateXLS(col_sep: "\t") }
+		end
+	end
+
+	def generateXLS(options = {})
+		require 'net/http'
+		require 'uri'
+        uri = URI.parse('http://localhost:3000/apiusers/getapiuserrestrictdata')
+        http = Net::HTTP.new(uri.host, uri.port)
+        req = Net::HTTP::Get.new(uri.request_uri)
+        req["apiuserkey"] = session[:user]["apiuserkey"]
+        res = http.request(req)
+        res = JSON.parse(res.body)
+		CSV.generate(options) do |csv|
+      		csv << ["NAME","EMAIL","PASSWORD","COURSE","YOUTUBE_ID"]
+        	csv << [res["userinfo"]["name"],res["userinfo"]["email"],
+        			res["userinfo"]["password"],res["userinfo"]["course_name"],
+        		res["userinfo"]["youtube_id"]]
+      	end
 	end
 end
