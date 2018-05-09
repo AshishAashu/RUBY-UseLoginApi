@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   put "uselogin/getApiUpdate" => "uselogin#getApiUpdate"
   get "uselogin/logoutuser" => "uselogin#logoutUser", as: "logoutuser"
   get "uselogin/getapicourses" => "uselogin#getapicourses"
+  get "uselogin/downloaduserinfo" =>"uselogin#downloaduserinfo", 
+  			as: "downloaduserinfo"
 end
