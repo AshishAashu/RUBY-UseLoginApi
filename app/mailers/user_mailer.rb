@@ -7,6 +7,7 @@ class UserMailer < ActionMailer::Base
 
 	def notify_login_user(user)
 		@user = user
+		# attachments["login.png"] = File.read("#{Rails.root}/Public/images/imagename")
 		mail(:to=> @user["email"], :subject=> "Profile loggedin info")
 	end
 
