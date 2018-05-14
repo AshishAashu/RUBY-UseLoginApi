@@ -41,7 +41,7 @@
 		<%= link_to "Updation Form", updationform_path %>
 		<%= link_to "Logout", logoutuser_path %>
 	<% else %>
-		<%=link_to "Login Form", loginform_path %>
+		<%=link_to "Login Form", loginform_path, id: "loginform" %>
 		<%= link_to "Registration Form", regform_path %>
 	<% end %>
 
