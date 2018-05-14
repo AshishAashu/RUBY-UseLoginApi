@@ -11,7 +11,13 @@ class UseloginController < ApplicationController
 	end
 	def getApiLogin
 		# require 'net/http'
-		# require 'uri'    
+		# require 'uri'   
+    # uri = URI.parse('http://localhost:3000/apiusers/apilogin')
+    # http = Net::HTTP.new(uri.host, uri.port)
+    # req = Net::HTTP::Post.new(uri.request_uri)
+    # req["apikey"] = "asdfghjklz"
+    # req.set_form_data({"email"=>params[:email],"password"=>params[:password]})
+    # res = http.request(req) 
     require 'faraday'
     conn = Faraday.new('http://localhost:3000')
     res = conn.post do |req|
@@ -20,12 +26,6 @@ class UseloginController < ApplicationController
             req.headers['Content-Type'] = 'application/json'
             req.body = '{ "email": "'+params[:email]+'", "password": "'+params[:password]+'"}'
           end
-    # uri = URI.parse('http://localhost:3000/apiusers/apilogin')
-    # http = Net::HTTP.new(uri.host, uri.port)
-    # req = Net::HTTP::Post.new(uri.request_uri)
-    # req["apikey"] = "asdfghjklz"
-    # req.set_form_data({"email"=>params[:email],"password"=>params[:password]})
-    # res = http.request(req)
     res = JSON.parse(res.body)
   	if(res["status"] == "OK")
   		flash[:notice] = "Login Successful."
@@ -35,7 +35,7 @@ class UseloginController < ApplicationController
   		flash[:notice] = res
   		redirect_to "/uselogin"
   	end
-    # UserMailer.delay.notify_login_user(res["userinfo"])
+    UserMailer.delay.notify_login_user(res["userinfo"])
 	end
 
 	def getApiRegister
