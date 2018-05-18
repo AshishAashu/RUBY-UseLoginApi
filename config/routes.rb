@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'  
   root to: "uselogin#index"
   get "uselogin", to: "uselogin#index"
   get "uselogin/loginform" =>  "uselogin#loginform", as: "loginform"
@@ -13,4 +15,7 @@ Rails.application.routes.draw do
   get "uselogin/getapicourses" => "uselogin#getapicourses"
   get "uselogin/downloaduserinfo" =>"uselogin#downloaduserinfo", 
   			as: "downloaduserinfo"
+  get "uselogin/downloaduserlist" =>"uselogin#downloaduserlist", 
+        as: "downloaduserlist"
+  get "uselogin/admin" => "uselogin#admin", as: "admin"
 end

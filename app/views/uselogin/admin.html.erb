@@ -1,0 +1,80 @@
+<% content_for :banner do %>
+  	<header>
+		<div style="margin-bottom: 10px;">
+			<image src="/images/main_banner.jpg" width="100%" height="200px" />
+		</div>
+	</header>
+<% end %>
+<div class="container">
+	<% if flash[:notice] %>
+		<div class="h5" style="padding: 5px 10px; color: #d13436; border: 1px solid #d13436;border-radius: 5px;">	
+			<%= flash[:notice] %>
+		</div>
+	<% end %>
+	<% if session[:user]!= nil %>
+	<%= link_to "<button class='btn btn-danger'>Logout Admin</button>".html_safe, logoutuser_path %>
+	<div class="table">
+		<table class="table-bordered">
+			<tr>
+				<td colspan="2">
+					<%= link_to "Download My User List", downloaduserlist_path(format: "xls")  %>
+				</td>
+			</tr>
+			<tr>
+				<td>email:</td>
+				<td><%= session[:user]["email"]%></td>
+			</tr>			
+			<tr>
+				<td>Apikey:</td>
+				<td><%= session[:user]["apikey"]%></td>
+			</tr>
+		</table>
+	</div>
+	<% end %>
+
+	<div class="table container">
+		<h2>Total Users are : <%= @myusers.count%></h2>
+		<table class="table-bordered">
+			<thead>
+				<tr>
+					<td>
+						Id
+					</td>
+					<td>
+						Name
+					</td>
+					<td>
+						Email
+					</td>
+					<td>
+						Created at
+					</td>
+					<td>
+						YoutubeId
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% @myusers.each do |user| %>
+					<tr>
+						<td>
+							<%= user["id"] %>
+						</td>
+						<td>
+							<%= user["name"] %>
+						</td>
+						<td>
+							<%= user["email"] %>
+						</td>
+						<td>
+							<%= user["created_at"] %>
+						</td>					
+						<td>
+							<%= user["youtube_id"] %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>

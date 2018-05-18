@@ -15,4 +15,9 @@ class UserMailer < ActionMailer::Base
 		@user = user
 		mail(:to=> @user["email"], :subject=> "Profile update info")
 	end
+
+	def notification_mail(user,data)
+		@user = user
+		mail(:to=> user, :subject=> data)
+	end
 end

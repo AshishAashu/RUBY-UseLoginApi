@@ -1,48 +1,76 @@
-<header>
-	<div>
-		<h1 class="text-danger">Use Login</h1>
-	</div>
-</header>
-<div class="panel panel-success panel-header">
-	<% if flash[:notice] %>
-		<%= flash[:notice] %>
-	<% end %>
-</div>
-<div>
-	<% if session[:user]!= nil %>
-	<div class="table">
-		<table class="table-bordered">
-			<tr>
-				<td colspan="2">
-					<%= link_to "Download Info", downloaduserinfo_path(format: "xls") %>
-				</td>
-			</tr>
-			<tr>
-				<td>Name:</td>
-				<td><%= session[:user]["name"]%></td>
-			</tr>
-			<tr>
-				<td>email:</td>
-				<td><%= session[:user]["email"]%></td>
-			</tr>			
-			<tr>
-				<td>Course:</td>
-				<td><%= session[:user]["course_name"]%></td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><%= session[:user]["password"]%></td>
-			</tr>
-		</table>
-	</div>
-	<div class="container">
-		<iframe src="http://www.youtube.com/embed/<%= session[:user]["youtube_id"]%>" width="600" height="300" allowfullscreen></iframe>
-	</div>
-		<%= link_to "Updation Form", updationform_path %>
-		<%= link_to "Logout", logoutuser_path %>
-	<% else %>
-		<%=link_to "Login Form", loginform_path, id: "loginform" %>
-		<%= link_to "Registration Form", regform_path %>
-	<% end %>
+<% content_for :banner do %>
+  	<header>
+		<div style="margin-bottom: 10px;">
+			<image src="/images/home_banner.jpg" width="100%" height="200px" />
+		</div>
+	</header>
+<% end %>
 
+<div class="container">
+	<% if flash[:notice] %>
+		<div class="h5" style="padding: 5px 10px; color: #d13436; border: 1px solid #d13436;border-radius: 5px;">	
+			<%= flash[:notice] %>
+		</div>
+	<% end %>
+	<% if session[:user]!= nil %>
+	<%= link_to "<button class='btn btn-warning'>Updation Form</button>".html_safe, updationform_path, title: "Open Updation Form" %>
+		<%= link_to "<button class='btn btn-danger'>Logout</button>".html_safe, logoutuser_path, title: "click to Logout" %>
+		<hr style="background-color: #ed090c;">
+	<div class="container row">
+		<div class="table col-lg-5">
+			<center>
+				<table class="table-bordered">
+					<tr>
+						<td colspan="2">
+							<%= link_to "Download Info", downloaduserinfo_path(format: "xls") %>
+						</td>
+					</tr>
+					<tr>
+						<td>Name:</td>
+						<td><%= session[:user]["name"]%></td>
+					</tr>
+					<tr>
+						<td>email:</td>
+						<td><%= session[:user]["email"]%></td>
+					</tr>			
+					<tr>
+						<td>Course:</td>
+						<td><%= session[:user]["course_name"]%></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><%= session[:user]["password"]%></td>
+					</tr>
+				</table>
+			</center>
+		</div>
+
+		<div class="col-lg-7">
+			<iframe src="http://www.youtube.com/embed/<%= session[:user]["youtube_id"]%>" width="600" height="300" allowfullscreen></iframe>
+		</div>
+	</div>
+	
+	<% else %>
+
+	<div class="container panel panel-info" id="contentdiv" style="">
+		<div class="">
+			<div class="panel-body" style="padding-bottom:0;">
+				<div class="row" >
+					<div class="col-md-6 well" align="center" style="height: 50%;">
+						<img src="/images/handle.jpg" class="img img-thumbnail"/>
+						<div>
+							<%=link_to '<button class="btn btn-danger btn-lg" style="margin-top: -55%;">Login Form</button>'.html_safe, loginform_path, id: "loginform", style:' text-decoration: none;' , title: "Go to Login Form"%>
+						</div>
+					</div>
+					<div class="col-md-6 well" align="center" style="height: 50%;" >
+						<img src="/images/handle_registration.jpg" width="470px" height="450px" class="img img-thumbnail"/>
+						<div>
+							<%= link_to '<button class="btn btn-primary btn-lg" style="margin-top: -90%;margin-left: 25%;">Registration Form</button>'.html_safe, regform_path , style: "text-decoration: none;color: white;", title: "Go to Registration Form"%>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>	
+	</div>		
+	<% end %>
 </div>

@@ -1,24 +1,37 @@
-<%= link_to "Go Back", "/" %>
-<%= form_tag 'getApiLogin', id: "loginform", method: "post",:class=>"form-horizontal" do %>
-	<div class="form-group">
-	  <%= label_tag :email, "Email:" ,:class=>'col-lg-4 control-label text-danger' %>
-	  <div class="col-lg-5">
-	  	<%= email_field_tag :email, nil,:class=>'form-control',:placeholder=>"Enter Email Id" ,:required=>true %>
-	  </div>
-	</div>
-
-	<div class="form-group">
-	  <%= label_tag :password, "Password:",:class=>'col-lg-4 control-label text-danger'  %>
-	  <div class="col-lg-5">
-	  	<%= password_field_tag :password,nil ,:class=>'form-control',:placeholder=>"Enter Password" ,:required=>true %>	  	
-	  </div>
-	</div>
-	<div class="form-group">
-		<div class="col-lg-offset-4 col-lg-5">
-  			<%= submit_tag "Login", class: "btn btn-danger" %>
-			<%= link_to "Registration Form", regform_path %>
-  		</div>
-  	</div>
+<% content_for :banner do %>
+  	<header>
+		<div style="margin-bottom: 10px;">
+			<image src="/images/login_banner.jpeg" width="100%" height="200px" />
+		</div>
+	</header>
 <% end %>
+<div class="container">
+	<%= link_to "<button class='btn btn-success'>Go Back</button>".html_safe, "/", style: "text-decoration: none;", title: "Go to Home" %>
+	<hr style="background-color: #ed090c;">
+	<h3 style="color:#9D00DB;">	
+		Login From
+	</h3>
+	<%= form_tag 'getApiLogin', id: "loginform", method: "post",:class=>"form-horizontal" do %>
+		<div class="form-group row">
+		  <%= label_tag :email, "Email:" ,:class=>'col-lg-4 h5 text-right control-label text-danger' %>
+		  <div class="col-lg-5">
+		  	<%= email_field_tag :email, nil,:class=>'form-control',:placeholder=>"Enter Email Id" ,:required=>true %>
+		  </div>
+		</div>
+
+		<div class="form-group row">
+		  <%= label_tag :password, "Password:",:class=>'col-lg-4 h5 text-right control-label text-danger'  %>
+		  <div class="col-lg-5">
+		  	<%= password_field_tag :password,nil ,:class=>'form-control',:placeholder=>"Enter Password" ,:required=>true %>	  	
+		  </div>
+		</div>
+		<div class="form-group row">
+			<div class="col-lg-5" style="margin-left: 33%;">
+	  			<%= submit_tag "Login", class: "btn btn-danger", title: "click to login" %>
+				<%= link_to "<button class='btn btn-primary'>Registration Form</button>".html_safe, regform_path, title: "Go To Registration form" ,style: "text-decoration:none;"%>
+	  		</div>
+	  	</div>
+	<% end %>
+</div>
 
 
